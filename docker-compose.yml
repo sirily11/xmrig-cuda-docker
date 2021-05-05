@@ -17,3 +17,11 @@ services:
       runtime: nvidia
       volumes: 
         - ./phoenix/config.txt:/usr/local/bin/PhoenixMiner_5.5c_Linux/config.txt
+    nb:
+      build:
+        dockerfile: docker/nb.dockerfile
+        context: ./
+      container_name: "phoenix"
+      runtime: nvidia
+      # volumes: 
+      #   - ./phoenix/config.txt:/usr/local/bin/PhoenixMiner_5.5c_Linux/config.txt
