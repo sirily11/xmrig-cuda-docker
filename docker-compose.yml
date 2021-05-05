@@ -1,0 +1,8 @@
+version: "3.0"
+
+services:
+    minner:
+      build: ./
+      container_name: "mine"
+      runtime: nvidia
+      command: "-o rx.unmineable.com:3333"
