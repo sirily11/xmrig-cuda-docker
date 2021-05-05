@@ -1,8 +1,19 @@
 version: "3.0"
 
 services:
-    minner:
-      build: ./
+    xmrig:
+      build:
+        dockerfile: docker/xmrig.dockerfile
+        context: ./
       container_name: "mine"
       runtime: nvidia
-      command: "-o rx.unmineable.com:3333"
+      volumes: 
+        - ./config.json:/usr/local/bin/config.json
+    phoenix:
+      build:
+        dockerfile: docker/phoenix.dockerfile
+        context: ./
+      container_name: "phoenix"
+      runtime: nvidia
+      volumes: 
+        - ./phoenix/config.txt:/usr/local/bin/PhoenixMiner_5.5c_Linux/config.txt

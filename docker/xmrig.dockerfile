@@ -1,4 +1,4 @@
-ARG CUDA_VERSION=10.0
+ARG CUDA_VERSION=11.3.0
 ARG BUILD_FLAVOR=devel
 ARG RUN_FLAVOR=base
 ARG DISTRO=ubuntu18.04
@@ -16,13 +16,16 @@ RUN cd xmrig-cuda && mkdir build
 
 WORKDIR xmrig-cuda/build
 RUN cmake .. -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda -DCUDA_LIB=/usr/local/cuda/lib64/stubs/libcuda.so ${CMAKE_OPTS} -DCMAKE_CXX_FLAGS=-std=c++11 && make -j8
-RUN ls
+RUN ls -a
 
 FROM nvidia/cuda:${CUDA_VERSION}-${RUN_FLAVOR}-${DISTRO}
 
 LABEL maintainer='docker@merxnet.io'
 
 COPY --from=build /xmrig-cuda/build/libxmrig-cuda.so /usr/local/bin/libxmrig-cuda.so
+
+COPY --from=build /xmrig-cuda/build/libxmrig-cu.a /usr/local/bin/libxmrig-cu.a
+
 RUN apt-get update
 RUN apt-get -qq -y install curl
 RUN apt install -y wget
