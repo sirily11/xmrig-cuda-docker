@@ -17,11 +17,30 @@ services:
       runtime: nvidia
       volumes: 
         - ./phoenix/config.txt:/usr/local/bin/PhoenixMiner_5.5c_Linux/config.txt
-    nb:
+    kpa:
       build:
         dockerfile: docker/nb.dockerfile
         context: ./
-      container_name: "phoenix"
+      container_name: "kpa"
       runtime: nvidia
-      # volumes: 
-      #   - ./phoenix/config.txt:/usr/local/bin/PhoenixMiner_5.5c_Linux/config.txt
+    
+    bminer:
+      build:
+        dockerfile: docker/bminer.dockerfile
+        context: ./
+      container_name: "bminer"
+      runtime: nvidia
+    
+    lolminer:
+      build:
+        dockerfile: docker/lolminer.dockerfile
+        context: ./
+      container_name: "lol"
+      runtime: nvidia
+    
+    gminer:
+      build:
+        dockerfile: docker/gminer.dockerfile
+        context: ./
+      container_name: "gminer"
+      runtime: nvidia
